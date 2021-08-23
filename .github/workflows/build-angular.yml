@@ -24,5 +24,6 @@ jobs:
       - name: npm install and npm run build
         run: |
           npm i
+          sudo npm install -g @angular/cli@12.2.2
           ng build --prod --aot
       
