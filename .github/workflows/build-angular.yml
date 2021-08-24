@@ -25,11 +25,12 @@ jobs:
         run: |
           npm i
           sudo npm install -g @angular/cli@12.2.2
-          ng build --prod --aot --deploy-url /hamsters/
+          ng build --prod --aot --deploy-url /hamster/
           
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
           branch: gh-pages # The branch the action should deploy to.
           folder: dist/hamsterng # The folder the action should deploy.
+          single-commit: true
       

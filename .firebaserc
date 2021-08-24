@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "hamster-9c011": {
+      "hosting": {
+        "hamsterng": [
+          "hamster-9c011"
+        ]
+      }
+    }
+  }
+}
