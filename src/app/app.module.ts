@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GraphsComponent } from './pages/graphs/graphs.component';
@@ -10,6 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { APIInterceptor } from './api-interceptor';
 
 /**
  * How to use ngx-socket-io: https://www.npmjs.com/package/ngx-socket-io
@@ -26,10 +27,19 @@ const socketIoConfig: SocketIoConfig = { url: environment.socketIoUrl, options: 
     AppRoutingModule,
     NgxChartsModule,
     BrowserAnimationsModule,
-    SocketIoModule.forRoot(socketIoConfig)
+    SocketIoModule.forRoot(socketIoConfig),
+    HttpClientModule
   ],
   providers: [
-    { provide: APP_BASE_HREF, useValue: '/hamster/' }
+    {
+      provide: APP_BASE_HREF,
+      useValue: '/hamster/'
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: APIInterceptor,
+      multi: true,
+    }
   ],
   bootstrap: [AppComponent]
 })

@@ -4,5 +4,6 @@
  */
 
 export const commonEnv = {
-  socketIoUrl: "https://raps.hilkojj.nl/"
+  socketIoUrl: "https://raps.hilkojj.nl/",
+  apiUrl: "https://raps.hilkojj.nl/"
 }

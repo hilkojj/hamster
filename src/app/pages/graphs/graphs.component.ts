@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { LegendPosition, NgxChartsModule } from '@swimlane/ngx-charts';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-graphs',
@@ -27,36 +28,36 @@ export class GraphsComponent implements OnInit {
 
   below = LegendPosition.Below
 
-  constructor() {
-
-    // firestore.collection("temperatureHumidity",
-    //   ref => ref.where("frequency", "==", "HOUR").orderBy("time", "desc").limit(60*24)
-    // ).get().subscribe(result => {
-    //   result.docs.forEach(d => {
-    //     let datapoint: any = d.data()
-
-    //     console.log(datapoint.time)
-
-    //     this.tempPoints[0].series.push({
-    //       name: datapoint.time.toDate(),
-    //       value: datapoint.temperature
-    //     })
-    //     this.tempRange[0] = Math.min(this.tempRange[0], datapoint.temperature - 3)
-    //     this.tempRange[1] = Math.max(this.tempRange[1], datapoint.temperature + 3)
-
-    //     this.humidPoints[0].series.push({
-    //       name: datapoint.time.toDate(),
-    //       value: datapoint.humidity
-    //     })
-    //     this.humidRange[0] = Math.min(this.humidRange[0], datapoint.humidity - 10)
-    //     this.humidRange[1] = Math.max(this.humidRange[1], datapoint.humidity + 10)
-    //   })
-    // })
+  constructor(
+    private http: HttpClient
+  ) {
 
   }
 
-  ngOnInit(): void {
-  }
+  async ngOnInit() {
 
+    let data: any = await this.http.get("sensor_data.json?frequency=minute").toPromise()
+    data.datapoints.forEach((row: any) => {
+
+      let date = new Date(row[0] * 1000)
+      let temp = row[1]
+      let humid = row[2]
+
+      this.tempPoints[0].series.push({
+        name: date,
+        value: temp
+      })
+      this.tempRange[0] = Math.min(this.tempRange[0], temp - 2)
+      this.tempRange[1] = Math.max(this.tempRange[1], temp + 2)
+
+      this.humidPoints[0].series.push({
+        name: date,
+        value: humid
+      })
+      this.humidRange[0] = Math.min(this.humidRange[0], humid - 10)
+      this.humidRange[1] = Math.max(this.humidRange[1], humid + 10)
+    })
+
+  }
 
 }
