@@ -7,7 +7,7 @@ import { GraphsComponent } from './pages/graphs/graphs.component';
 import { environment } from 'src/environments/environment';
 import { APP_BASE_HREF } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { NgxEchartsModule } from 'ngx-echarts';
 
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { APIInterceptor } from './api-interceptor';
@@ -25,7 +25,9 @@ const socketIoConfig: SocketIoConfig = { url: environment.socketIoUrl, options: 
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgxChartsModule,
+    NgxEchartsModule.forRoot({
+      echarts: () => import('echarts')
+    }),
     BrowserAnimationsModule,
     SocketIoModule.forRoot(socketIoConfig),
     HttpClientModule

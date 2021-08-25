@@ -1,36 +1,39 @@
 
+<p>
+
+  Show:
+  
+  <a [routerLink]="" (click)="frequency = 'minute'; scale = 60 * 24">Day</a>
+  -
+  <a [routerLink]="" (click)="frequency = '10minutes'; scale = 60 * 24 * 7">Week</a>
+  -
+  <a [routerLink]="" (click)="frequency = 'hour'; scale = 60 * 24 * (365 / 12)">Month</a>
+  -
+  <a [routerLink]="" (click)="frequency = 'hour'; scale = 60 * 24 * 365">Year</a>
+  
+  <br><br>
+  Showing:
+  <b>{{ sinceDate.toLocaleString() }}</b> - <b>{{ toDate.toLocaleString() }}</b>
+
+  <br><br>
+
+  <a [routerLink]="" (click)="timeTravel = timeTravel + 1; scale = scale">&#8592; Older</a>
+  -
+  <a [routerLink]="" (click)="timeTravel = timeTravel - 1; scale = scale">Newer &#8594;</a>
+</p>
+
+
+<h2>Temperature 🌡️</h2>
 <div class="chart-wrapper">
 
-  <ngx-charts-line-chart *ngIf="this.tempPoints[0].series.length > 0"
-    [legend]="false"
-    [showXAxisLabel]="false"
-    xAxisLabel="Time"
-    [xAxis]="true"
-    [yAxis]="true"
-    [timeline]="false"
-    [results]="tempPoints"
-    [yScaleMin]="tempRange[0]"
-    [yScaleMax]="tempRange[1]"
-    >
-  </ngx-charts-line-chart>
+  <div echarts [options]="tempOptions" [merge]="tempUpdateOptions"></div>
 
-  <!-- [legendPosition]="below" -->
 </div>
 
+<h2>Humidity 💦</h2>
 <div class="chart-wrapper">
+  
 
-  <ngx-charts-line-chart *ngIf="this.humidPoints[0].series.length > 0"
-    [legend]="false"
-    [showXAxisLabel]="false"
-    xAxisLabel="Time"
-    [xAxis]="true"
-    [yAxis]="true"
-    [timeline]="false"
-    [results]="humidPoints"
-    [yScaleMin]="humidRange[0]"
-    [yScaleMax]="humidRange[1]"
-    >
-  </ngx-charts-line-chart>
+  <div echarts [options]="humidOptions" [merge]="humidUpdateOptions"></div>
 
-  <!-- [legendPosition]="below" -->
 </div>
