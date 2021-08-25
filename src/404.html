@@ -2,7 +2,7 @@
 <!-- A small hack to make Single Page Apps (without #) work on Github Pages. -->
 
 <script>
-  const path = window.location.pathname.slice(1);
+  const path = window.location.pathname.slice("/hamster".length);
   localStorage.setItem('path', path);
   window.location.href = "/hamster";
 </script>
