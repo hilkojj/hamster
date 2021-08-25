@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+import { LegendPosition, NgxChartsModule } from '@swimlane/ngx-charts';
 
 @Component({
   selector: 'app-graphs',
@@ -9,16 +9,54 @@ import { Observable } from 'rxjs';
 })
 export class GraphsComponent implements OnInit {
 
-  dataPoints: Observable<any[]>
+  tempPoints: any[] = [
+    {
+      "name": "Temp.",
+      "series": []
+    },
+  ]
+  tempRange = [100, 0]
 
-  constructor(firestore: AngularFirestore) {
+  humidPoints: any[] = [
+    {
+      "name": "Humid.",
+      "series": []
+    },
+  ]
+  humidRange = [100, 0]
 
-    this.dataPoints = firestore.collection("temperatureHumidity", ref => ref.where("frequency", "==", "FREQUENT").orderBy("time", "desc").limit(1))
-      .valueChanges()
+  below = LegendPosition.Below
+
+  constructor() {
+
+    // firestore.collection("temperatureHumidity",
+    //   ref => ref.where("frequency", "==", "HOUR").orderBy("time", "desc").limit(60*24)
+    // ).get().subscribe(result => {
+    //   result.docs.forEach(d => {
+    //     let datapoint: any = d.data()
+
+    //     console.log(datapoint.time)
+
+    //     this.tempPoints[0].series.push({
+    //       name: datapoint.time.toDate(),
+    //       value: datapoint.temperature
+    //     })
+    //     this.tempRange[0] = Math.min(this.tempRange[0], datapoint.temperature - 3)
+    //     this.tempRange[1] = Math.max(this.tempRange[1], datapoint.temperature + 3)
+
+    //     this.humidPoints[0].series.push({
+    //       name: datapoint.time.toDate(),
+    //       value: datapoint.humidity
+    //     })
+    //     this.humidRange[0] = Math.min(this.humidRange[0], datapoint.humidity - 10)
+    //     this.humidRange[1] = Math.max(this.humidRange[1], datapoint.humidity + 10)
+    //   })
+    // })
 
   }
 
   ngOnInit(): void {
   }
+
 
 }

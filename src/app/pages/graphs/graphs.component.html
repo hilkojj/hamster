@@ -1,0 +1,36 @@
+
+<div class="chart-wrapper">
+
+  <ngx-charts-line-chart *ngIf="this.tempPoints[0].series.length > 0"
+    [legend]="false"
+    [showXAxisLabel]="false"
+    xAxisLabel="Time"
+    [xAxis]="true"
+    [yAxis]="true"
+    [timeline]="false"
+    [results]="tempPoints"
+    [yScaleMin]="tempRange[0]"
+    [yScaleMax]="tempRange[1]"
+    >
+  </ngx-charts-line-chart>
+
+  <!-- [legendPosition]="below" -->
+</div>
+
+<div class="chart-wrapper">
+
+  <ngx-charts-line-chart *ngIf="this.humidPoints[0].series.length > 0"
+    [legend]="false"
+    [showXAxisLabel]="false"
+    xAxisLabel="Time"
+    [xAxis]="true"
+    [yAxis]="true"
+    [timeline]="false"
+    [results]="humidPoints"
+    [yScaleMin]="humidRange[0]"
+    [yScaleMax]="humidRange[1]"
+    >
+  </ngx-charts-line-chart>
+
+  <!-- [legendPosition]="below" -->
+</div>

@@ -1,31 +1,49 @@
-import { Component } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { Component, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Socket } from 'ngx-socket-io';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnDestroy {
 
-  tempHumid: Observable<any[]>
+  temperature: Observable<number>
+  humidity: Observable<number>
+  viewers: Observable<number>
+
+  subscriptions: Subscription[] = []
 
   constructor(
-    firestore: AngularFirestore,
+    public socket: Socket,
+
     private router: Router
   ) {
-
-    this.tempHumid = firestore.collection("temperatureHumidity", 
-      ref => ref.orderBy("time", "desc").limit(1)
-    ).valueChanges()
+    (window as any).socket = this.socket;
 
     let path = localStorage.getItem('path')
     if (path) {
       localStorage.removeItem('path')
       this.router.navigate([path])
     }
+
+    this.temperature = this.socket.fromEvent("temperature")
+    this.subscriptions.push(this.temperature.subscribe())
+    
+    this.humidity = this.socket.fromEvent("humidity")
+    this.subscriptions.push(this.humidity.subscribe())
+
+    this.viewers = this.socket.fromEvent("viewers")
+    this.subscriptions.push(this.viewers.subscribe())
+
+    this.socket.emit("request_sensor_data")
+    this.socket.emit("request_viewers")
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe())
   }
 
 }

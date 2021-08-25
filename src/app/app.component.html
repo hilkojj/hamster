@@ -1,21 +1,31 @@
 
 <h1>Hilko's hamster 🐹</h1>
 
-Current temperature:
-
-<b>
-  {{ ((tempHumid | async) || [])[0]?.temperature || "?"}}°C
-</b>
-
-<br>
-
-Current humidity:
-<b>
-  {{ ((tempHumid | async) || [])[0]?.humidity || "?"}}%
-</b>
+<p *ngIf="socket.ioSocket.connected; else offline">
+  🌡️temperature:
+  <b>
+    {{ temperature | async }}°C
+  </b>
   
+  <br>
+  💦 humidity:
+  <b>
+    {{ humidity | async }}%
+  </b>
+
+  <br>
+  👀 watching:
+  <b>
+    {{ viewers | async }}
+  </b>
+</p>
+
+<ng-template #offline>
+  ❌ The system seems to be offline!
+</ng-template>
+
 <p>
-  <a routerLink="/graphs">Graphs</a>
+  <a routerLink="/graphs">📈 Graphs</a>
 </p>
 
 <router-outlet></router-outlet>
