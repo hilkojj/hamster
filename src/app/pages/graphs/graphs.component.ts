@@ -31,6 +31,7 @@ export class GraphsComponent implements OnInit {
       // title: {
       //   text: 'Dynamic Data + Time Axis'
       // },
+      backgroundColor: "transparent",
       tooltip: {
         trigger: 'axis',
         formatter: (params: any) => params[0].value[0].toLocaleString() + ` 🌡️<b> ${params[0].value[1].toFixed(1)}°C</b>`
@@ -84,6 +85,7 @@ export class GraphsComponent implements OnInit {
       // title: {
       //   text: 'Dynamic Data + Time Axis'
       // },
+      backgroundColor: "transparent",
       tooltip: {
         trigger: 'axis',
         formatter: (params: any) => params[0].value[0].toLocaleString() + ` 💦<b> ${params[0].value[1].toFixed(1)}%</b>`

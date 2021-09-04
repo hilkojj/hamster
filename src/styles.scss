@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'tailwindcss/base';
 // @import 'tailwindcss/components';
-// @import 'tailwindcss/utilities';
+@import 'tailwindcss/utilities';
 
 body {
   @apply bg-gray-900 text-indigo-300;
@@ -18,12 +18,29 @@ body {
     transition: all .1s ease-out;
   }
 
-  &:focus {
-    &::after {
-      animation: wiggle .2s;
+  &:active {
+    @apply border-white bg-blue-200 text-white;
+  }
+
+  &:hover, &:focus, &.active {
+    .icon {
+      transform: scale(1.8) translateY(-4px);
+      filter: drop-shadow(0 3px 0 black);
     }
+    &::after {
+      top: -#{$offset};
+      left: -#{$offset};
+      width: calc(100% + #{$offset} * 2);
+      height: calc(100% + #{$offset} * 2);
+    }
+  }
+
+  &:focus {
     .icon {
       animation: icon-wiggle .2s;
+    }
+    &::after {
+      animation: wiggle .2s;
     }
   }
   
@@ -46,22 +63,7 @@ body {
     top: $offset;
     left: $offset;
   }
-  
-  &:hover, &:focus {
-    &::after {
-      top: -#{$offset};
-      left: -#{$offset};
-      width: calc(100% + #{$offset} * 2);
-      height: calc(100% + #{$offset} * 2);
-    }
-
-    .icon {
-      transform: scale(1.8) translateY(-4px);
-      filter: drop-shadow(0 3px 0 black);
-    }
-  }
 }
-
 
 @keyframes wiggle {
   25% {
@@ -81,4 +83,18 @@ body {
   }
 }
 
+.tab {
+  @apply btn;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom: none;
+  margin-bottom: 0;
 
+  &.active {
+    @apply bg-transparent border-transparent text-white;
+  }
+}
+
+h1 {
+  @apply text-xl text-pink-600 font-semibold py-3;
+}

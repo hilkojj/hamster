@@ -11,6 +11,8 @@ import { NgxEchartsModule } from 'ngx-echarts';
 
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { APIInterceptor } from './api-interceptor';
+import { AboutComponent } from './pages/about/about.component';
+import { LiveComponent } from './pages/live/live.component';
 
 /**
  * How to use ngx-socket-io: https://www.npmjs.com/package/ngx-socket-io
@@ -20,7 +22,9 @@ const socketIoConfig: SocketIoConfig = { url: environment.socketIoUrl, options: 
 @NgModule({
   declarations: [
     AppComponent,
-    GraphsComponent
+    GraphsComponent,
+    AboutComponent,
+    LiveComponent
   ],
   imports: [
     BrowserModule,

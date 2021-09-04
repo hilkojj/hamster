@@ -1,4 +1,6 @@
 
+<h1>Graphs & stats</h1>
+
 <p>
 
   Show:
@@ -17,16 +19,17 @@
 
   <br><br>
 
-  <a [routerLink]="" (click)="timeTravel = timeTravel + 1; scale = scale">&#8592; Older</a>
+  <a class="btn" [routerLink]="" (click)="timeTravel = timeTravel + 1; scale = scale">Older<span class="icon">⬅️</span></a>
   -
-  <a [routerLink]="" (click)="timeTravel = timeTravel - 1; scale = scale">Newer &#8594;</a>
+  <a class="btn" [routerLink]="" (click)="timeTravel = timeTravel - 1; scale = scale">Newer<span class="icon">➡️</span></a>
+  <br><br>
 </p>
 
 
 <h2>Temperature 🌡️</h2>
 <div class="chart-wrapper">
 
-  <div echarts [options]="tempOptions" [merge]="tempUpdateOptions"></div>
+  <div echarts theme="dark" [options]="tempOptions" [merge]="tempUpdateOptions"></div>
 
 </div>
 
@@ -34,6 +37,6 @@
 <div class="chart-wrapper">
   
 
-  <div echarts [options]="humidOptions" [merge]="humidUpdateOptions"></div>
+  <div echarts theme="dark" [options]="humidOptions" [merge]="humidUpdateOptions"></div>
 
 </div>

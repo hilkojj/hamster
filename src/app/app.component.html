@@ -1,33 +1,47 @@
 
-<h1>Hilko's hamster 🐹</h1>
+<div class="flex justify-center">
 
-<p *ngIf="socket.ioSocket.connected; else offline">
-  🌡️temperature:
-  <b>
-    {{ temperature | async | number: '1.1' }}°C
-  </b>
-  
-  <br>
-  💦 humidity:
-  <b>
-    {{ humidity | async | number: '1.1' }}%
-  </b>
+  <div class="w-full md:w-9/12 2xl:w-2/3">
 
-  <br>
-  👀 watching:
-  <b>
-    {{ viewers | async }}
-  </b>
-</p>
+    <h1>Hilko's hamster 🐹</h1>
+    
+    <p *ngIf="socket.ioSocket.connected; else offline">
+      🌡️temperature:
+      <b>
+        {{ temperature | async | number: '1.1' }}°C
+      </b>
+      
+      <br>
+      💦 humidity:
+      <b>
+        {{ humidity | async | number: '1.1' }}%
+      </b>
+    
+      <br>
+      👀 watching:
+      <b>
+        {{ viewers | async }}
+      </b>
+    </p>
+    
+    <ng-template #offline>
+      ❌ The system seems to be offline!
+    </ng-template>
+    
+    <div class="tabs">
+      <button class="tab" routerLinkActive="active" routerLink="/live">Live<span class="icon">🔴</span></button>
+      <button class="tab" routerLinkActive="active" routerLink="/graphs">Graphs<span class="icon">📈</span></button>
+      <button class="tab" routerLinkActive="active" routerLink="/about">About<span class="icon">👤</span></button>
+    </div>
+    
+    <div class="tab-content">
 
-<ng-template #offline>
-  ❌ The system seems to be offline!
-</ng-template>
+      <div id="twitch-embed"></div>
+      
+      <router-outlet></router-outlet>
+    </div>
 
-<button class="btn" routerLink="/">Live<span class="icon">🔴</span></button>
-<button class="btn" routerLink="/graphs">Graphs<span class="icon">📈</span></button>
-<button class="btn" routerLink="/about">About<span class="icon">👤</span></button>
+  </div>
 
-<div id="twitch-embed"></div>
+</div>
 
-<router-outlet></router-outlet>
