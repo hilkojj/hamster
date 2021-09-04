@@ -4,13 +4,13 @@
 <p *ngIf="socket.ioSocket.connected; else offline">
   🌡️temperature:
   <b>
-    {{ temperature | async }}°C
+    {{ temperature | async | number: '1.1' }}°C
   </b>
   
   <br>
   💦 humidity:
   <b>
-    {{ humidity | async }}%
+    {{ humidity | async | number: '1.1' }}%
   </b>
 
   <br>
@@ -24,8 +24,10 @@
   ❌ The system seems to be offline!
 </ng-template>
 
-<p>
-  <a routerLink="/graphs">📈 Graphs</a>
-</p>
+<button class="btn" routerLink="/">Live<span class="icon">🔴</span></button>
+<button class="btn" routerLink="/graphs">Graphs<span class="icon">📈</span></button>
+<button class="btn" routerLink="/about">About<span class="icon">👤</span></button>
+
+<div id="twitch-embed"></div>
 
 <router-outlet></router-outlet>

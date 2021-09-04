@@ -1,14 +1,16 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Socket } from 'ngx-socket-io';
 import { Observable, Subscription } from 'rxjs';
+
+declare const Twitch: any;
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnDestroy {
+export class AppComponent implements OnInit, OnDestroy {
 
   temperature: Observable<number>
   humidity: Observable<number>
@@ -40,6 +42,17 @@ export class AppComponent implements OnDestroy {
 
     this.socket.emit("request_sensor_data")
     this.socket.emit("request_viewers")
+  }
+
+  ngOnInit(): void {
+    new Twitch.Embed("twitch-embed", {
+      width: "100%",
+      height: 480,
+      channel: "harrie_bombarie",
+      muted: true,
+      layout: "video"
+    });
+
   }
 
   ngOnDestroy(): void {
