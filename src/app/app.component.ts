@@ -45,6 +45,14 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+
+    if (this.onlySensors())
+    {
+      document.body.style.background = "transparent"
+      document.documentElement.style.background = "transparent"
+      return;
+    }
+
     new Twitch.Embed("twitch-embed", {
       width: "100%",
       height: 480,
@@ -57,6 +65,10 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.forEach(sub => sub.unsubscribe())
+  }
+
+  onlySensors(): boolean {
+    return location.hash.endsWith("onlysensors")
   }
 
 }

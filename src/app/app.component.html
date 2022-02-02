@@ -1,5 +1,17 @@
 
-<div class="flex justify-center">
+<div class="justify-center" *ngIf="onlySensors()">
+  🌡️
+  <b>
+    {{ temperature | async | number: '1.1' }}°C
+  </b>
+  <br>
+  💦
+  <b>
+    {{ humidity | async | number: '1.1' }}%
+  </b>
+</div>
+
+<div class="flex justify-center" *ngIf="!onlySensors()">
 
   <div class="w-full md:w-9/12 2xl:w-2/3">
 
